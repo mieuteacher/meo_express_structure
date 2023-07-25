@@ -10,6 +10,10 @@ const server = express();
 import {mysqlConnect} from './databases/mySQL';
 mysqlConnect();
 
+/* Body Parser */
+import bodyParser from 'body-parser';
+server.use(bodyParser.json());
+
 /* Setup Views */
 import viewConfig from './views';
 server.use("/views", viewConfig);
