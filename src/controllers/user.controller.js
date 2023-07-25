@@ -1,9 +1,8 @@
 import userModel from  '../models/user.model';
 
-
 module.exports = {
-    getUsers: function(req, res) {
-        let result = userModel.getUsers();
+    getUsers: async function(req, res) {
+        let result = await userModel.getUsers();
         if (result.status) {
             return res.status(200).json(
                 {
