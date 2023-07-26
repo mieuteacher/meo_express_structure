@@ -1,19 +1,25 @@
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:@127.0.0.1:3306/learn_prisma_db"
+  url      = "mysql://root:@127.0.0.1:3306/prisma_db"
 }
 
-model Products {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  price  Float
-  pictures Pictures[]
+model pictures {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  url       String
+  products  products @relation(fields: [productId], references: [id], map: "Pictures_productId_fkey")
+
+  @@index([productId], map: "Pictures_productId_fkey")
 }
 
-model Pictures {
-  id        Int     @id @default(autoincrement())
-  product    Products    @relation(fields: [productId], references: [id])
-  productId     Int
-  url String
+model products {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique(map: "Products_name_key")
+  price    Float
+  active   Boolean    @default(false)
+  pictures pictures[]
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
