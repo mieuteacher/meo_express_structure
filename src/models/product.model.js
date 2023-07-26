@@ -10,7 +10,8 @@ module.exports = {
 
         const result = await prisma.products.findMany({
             where: {
-                name: { contains: 'test' },
+                name: { contains: 'Vừa' },
+                price: {gt: 50000}
             },
             include: {
                 pictures: true,
