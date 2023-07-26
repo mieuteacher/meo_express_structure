@@ -1,0 +1,20 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:@127.0.0.1:3306/learn_prisma_db"
+}
+
+
+model Products {
+  id    Int    @id @default(autoincrement())
+  name  String
+  price  Float
+  pictures Pictures[]
+}
+
+model Pictures {
+  id        Int     @id @default(autoincrement())
+  product    Products    @relation(fields: [productId], references: [id])
+  productId     Int
+  url String
+}
+

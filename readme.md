@@ -29,3 +29,7 @@
     + trong lệnh chạy dự án thêm: pro: thay node = babel-node
 
 
+
+
+
+cd src => cd databases => cd prisma => npx prisma migrate dev 
