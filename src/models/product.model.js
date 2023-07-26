@@ -2,7 +2,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 module.exports = {
     getProducts: async function() {
-        let result = await prisma.pictures.findMany();
+        let result = await prisma.products.findMany({
+            include: {
+                pictures: true,
+            },
+        });
         console.log("result", result);
     }
 }
