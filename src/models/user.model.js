@@ -249,5 +249,45 @@ module.exports = {
                 message: "Lỗi không xác định!"
             }
        })
+     },
+     updateFieldUserById: function(userId, patchData) {
+        return new Promise((resolve, reject) => {
+
+            let patchString = ``;
+
+            for (let i in patchData) {
+                patchString += `${i}="${patchData[i]}",`
+            }
+
+            let queryString = `
+                UPDATE users
+                SET ${patchString.substring(0, patchString.length - 1)}
+                WHERE users.id=${userId};
+            `
+
+            mySQL.query(queryString, (err, result) => {
+                if(err) {
+                    console.log("err thất bại!", err)
+                    return resolve(
+                        {
+                            status: false,
+                            message: "Lỗi không xác định!"
+                        }
+                    )
+                }
+                return resolve(
+                    {
+                        status: true,
+                        message: "Truy vấn thành công!"
+                    }
+                )
+            })
+       }).catch(err => {
+            //console.log("Promise gặp lỗi cú pháp!", err)
+            return {
+                status: false,
+                message: "Lỗi không xác định!"
+            }
+       })
      }
 }
