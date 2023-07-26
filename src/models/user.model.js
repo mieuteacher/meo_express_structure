@@ -267,7 +267,6 @@ module.exports = {
 
             mySQL.query(queryString, (err, result) => {
                 if(err) {
-                    console.log("err thất bại!", err)
                     return resolve(
                         {
                             status: false,
