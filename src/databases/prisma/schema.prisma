@@ -3,10 +3,9 @@ datasource db {
   url      = "mysql://root:@127.0.0.1:3306/learn_prisma_db"
 }
 
-
 model Products {
   id    Int    @id @default(autoincrement())
-  name  String
+  name  String @unique
   price  Float
   pictures Pictures[]
 }
