@@ -216,36 +216,38 @@ module.exports = {
                 message: "Lỗi không xác định!"
             }
        })
+     },
+     updateUserById: function(userId, updateData) {
+        return new Promise((resolve, reject) => {
+        
+            let queryString = `
+                UPDATE users
+                SET name="${updateData.name}", email="${updateData.email}"
+                WHERE users.id=${userId};
+            `
+            mySQL.query(queryString, (err, result) => {
+                if(err) {
+                    console.log("err thất bại!", err)
+                    return resolve(
+                        {
+                            status: false,
+                            message: "Lỗi không xác định!"
+                        }
+                    )
+                }
+                return resolve(
+                    {
+                        status: true,
+                        message: "Truy vấn thành công!"
+                    }
+                )
+            })
+       }).catch(err => {
+            //console.log("Promise gặp lỗi cú pháp!", err)
+            return {
+                status: false,
+                message: "Lỗi không xác định!"
+            }
+       })
      }
 }
-
-
-
-
-// user = {
-//     id: 6,
-//     name: "Hương",
-//     email: "huong@gmail.com",
-//     address: [
-//         {
-//             id: 1,
-//             name: "Nhà Riêng",
-//             provinceId: 1,
-//             wardId: 5
-//         },
-//         {
-//             id: 2,
-//             name: "Công Ty",
-//             provinceId: 1,
-//             wardId: 5
-//         }
-//     ]
-// }
-
-
-// user2 = {
-//     id: 5,
-//     name: "Tài",
-//     email: "tai@gmail.com",
-//     address: []
-// }
