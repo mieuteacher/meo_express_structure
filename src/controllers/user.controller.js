@@ -4,7 +4,7 @@ module.exports = {
     getUsers: async function(req, res) {
         /* Get User By Id */
         if(req.query.userId) {
-            if (Boolean(req.query.detail)) {
+            if (JSON.parse(req.query.detail)) {
                 let result = await userModel.getUserDetailById(req.query.userId);
                 if (result.status) {
                     return res.status(200).json(

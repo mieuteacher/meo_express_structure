@@ -57,8 +57,8 @@ module.exports = {
                  return resolve(
                      {
                          status: true,
-                         message: "Get users by idthành công!",
-                         data: result
+                         message: "Get users by id thành công!",
+                         data: result[0]
                      }
                  )
              })
@@ -81,15 +81,14 @@ module.exports = {
              `
  
              mySQL.query(queryString, (err, result) => {
-                 if(err) {
+                 if(err || result.length == 0) {
                      return resolve(
                          {
                              status: false,
-                             message: "Lỗi trong quá trình truy vấn!"
+                             message: result.length == 0 ? "UserId không tồn tại" : "Lỗi trong quá trình truy vấn!"
                          }
                      )
                  }
-                 //console.log("result", result)
                 let user;
                 for (let i in result) {
                     if (!user) {
@@ -122,7 +121,6 @@ module.exports = {
                         }
                     )
                 }
-
                  return resolve(
                      {
                          status: true,
