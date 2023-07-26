@@ -175,6 +175,48 @@ module.exports = {
              }
         })
      },
+     deleteUser: function(userId) {
+        return new Promise((resolve, reject) => {
+        
+            let queryString = `
+                DELETE 
+                FROM users 
+                WHERE users.id = ${userId};
+            `
+
+            mySQL.query(queryString, (err, result) => {
+                if(err || result.affectedRows == 0) {
+                    if (result.affectedRows == 0) {
+                        return resolve(
+                            {
+                                status: false,
+                                message: "User Id không tồn tại!"
+                            }
+                        )
+                    }
+                    return resolve(
+                        {
+                            status: false,
+                            message: err.code == "ER_ROW_IS_REFERENCED_2" ? "User đang dính khóa ngoại!" : "Lỗi trong quá trình truy vấn!"
+                        }
+                    )
+                }
+
+                return resolve(
+                    {
+                        status: true,
+                        message: "Delete user có id: " + userId + " Thành công!",
+                    }
+                )
+            })
+       }).catch(err => {
+            //console.log("Promise gặp lỗi cú pháp!", err)
+            return {
+                status: false,
+                message: "Lỗi không xác định!"
+            }
+       })
+     }
 }
 
 

@@ -65,5 +65,20 @@ module.exports = {
                 message: result.message,
             })
         }
+    },
+    deteleUserById: async function(req, res) {
+        let result = await userModel.deleteUser(req.params.userId);
+        if (result.status) {
+            return res.status(200).json(
+                {
+                    message: result.message,
+                    data: result.data
+                }
+            )
+        }else {
+            return res.status(500).json({
+                message: result.message,
+            })
+        }
     }
 }
