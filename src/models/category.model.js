@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 module.exports = {
@@ -28,7 +28,12 @@ module.exports = {
     readMany: async function(status = undefined) {
         try {
             let categories = await prisma.categories.findMany({
-                where: status == undefined ? {} : {status}
+                where: status == undefined ? {
+                    deleted: false
+                } : {
+                    status,
+                    deleted: false
+                }
             });
             return {
                 status: true,
