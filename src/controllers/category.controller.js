@@ -60,7 +60,7 @@ module.exports = {
 
         }catch(err) {
             return res.status(500).json({
-                message: "Lỗi không xác định !"
+                message: "Lỗi không xác định!"
             })
         }
     },

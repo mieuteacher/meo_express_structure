@@ -14,6 +14,10 @@ server.use(bodyParser.json());
 import viewConfig from './views';
 server.use("/views", viewConfig);
 
+/* Setup Cors */
+import cors from 'cors';
+server.use(cors());
+
 /* Setup Api */
 import apiConfig from './routes';
 server.use("/apis", apiConfig);
