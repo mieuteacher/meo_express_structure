@@ -8,14 +8,13 @@ const imgProductStorage = multer.diskStorage({
       cb(null, 'public/images/products')
     },
     filename: function (req, file, cb) {
-    console.log("file", file)
       cb(null, `product_${Date.now()}.${file.mimetype.split('/')[1]}`)
     }
   })
   
-const upload = multer({ storage: imgProductStorage })
+const productUpload = multer({ storage: imgProductStorage })
 
 import productController from "../../controllers/product.controller";
-router.post("/",upload.single('productImages'), productController.create)
+router.post("/",productUpload.array('imgs'), productController.create)
 
 module.exports = router;
